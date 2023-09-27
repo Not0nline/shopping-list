@@ -2,18 +2,56 @@
     table, th, td {
       border: 1px solid;
     }
+
+    .flex-item {
+    justify-content: flex-end;
+    }   
     </style>
 
 {% extends 'base.html' %}
 
 {% block content %}
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Name: {{name}}</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Class: {{class}}</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+
+    
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" justify-content: flex-end>
+        <div class="container-fluid">
+            <a href="{% url 'main:create_product' %}">
+                <button class="btn btn-outline-success">
+                    Add New Product
+                </button>
+            </a>
+        </nav>
+        
+        <nav justify-content: flex-end>
+            <div class="container-fluid">
+                <a href="{% url 'main:logout' %}">
+                    <button class="btn btn-outline-dark">
+                        Logout
+                    </button>
+                </a>
+            </div>
+        </nav>
+      </div>
+    </div>
+  </nav>
+<br/>
+
 <h1>Shopping List Page</h1>
 
-<h5>Name:</h5>
-<p>{{name}}</p>
-
-<h5>Class:</h5>
-<p>{{class}}</p>
+<br/>
 
 <table>
     <tr>
@@ -31,26 +69,30 @@
             <td>{{product.price}}</td>
             <td>{{product.description}}</td>
             <td>{{product.date_added}}</td>
+            <td>
+                <a href="{% url 'main:edit_product' product.pk %}">
+                    <button class="btn btn-outline-warning">
+                        Edit
+                    </button>
+                </a>
+                <a href="{% url 'main:delete_product' product.pk %}">
+                    <button class="btn btn-outline-danger">
+                        Delete
+                    </button>
+                </a>
+            </td>
         </tr>
     {% endfor %}
 </table>
 
 <br />
 
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+
 <h5>Sesi terakhir login: {{ last_login }}</h5>
 
-<a href="{% url 'main:create_product' %}">
-    <button>
-        Add New Product
-    </button>
-</a>
-
-
-
-<a href="{% url 'main:logout' %}">
-    <button>
-        Logout
-    </button>
-</a>
 
 {% endblock content %}
